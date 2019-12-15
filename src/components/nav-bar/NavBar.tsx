@@ -26,4 +26,4 @@ const Example = (props: any) => {
   );
 }
 
-export default Example;n
+export default Example;
