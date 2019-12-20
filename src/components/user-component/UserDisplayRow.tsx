@@ -1,18 +1,18 @@
 import React from 'react'
-import { User } from '../../models/user';
+import { User } from '../..//models/user';
 
-interface IUserDisplayRowProps {
+interface IUsersDisplayRowProps{
     user: User
 }
 
-export const UserDisplayRow: React.FC<IUserDisplayRowProps> = (props) => {
+export const UsersDisplayRowComponent: React.FC<IUsersDisplayRowProps> = (props) => {
     return (
-        <div>
-            <p>{props.user.username}</p>
-            <p>{props.user.first_name}</p>
-            <p>{props.user.last_name}</p>
-            <p>{props.user.email}</p>
-            {/* <p>{props.user.role}</p> */}
-        </div>
+        <tr>
+            <td>{props.user.username}</td>
+            <td>{props.user.email}</td>
+            <td>{props.user.firstName}</td>
+            <td>{props.user.lastName}</td>
+            <td>{props.user.role}</td>
+        </tr>
     )
 }

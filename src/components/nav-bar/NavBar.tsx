@@ -8,16 +8,16 @@ const Example = (props: any) => {
 
   return (
     <div>
-      <Navbar color="faded" light>
-        <NavbarBrand href="/" className="mr-auto">reactstrap</NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+      <Navbar color='faded' light>
+        <NavbarBrand href='/' className='mr-auto'>STARWARS</NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className='mr-2' />
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href='/user'>User</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink href='/reimbursement'>Reimbursement</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

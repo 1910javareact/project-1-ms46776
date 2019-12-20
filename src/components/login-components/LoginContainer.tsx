@@ -1,7 +1,8 @@
-import { connect } from "react-redux"
-import { Login } from "./LoginComponent"
-import { IState } from "../../reducers"
-import { uLogin } from '../../action-mappers/login-action-mapper'
+import { IState } from "../../reducers";
+import { connect } from "react-redux";
+import { userLogin } from '../../action-mappers/login-action-mapper'
+import { LoginComponent } from "./LoginComponent";
+
 
 const mapStateToProps = (state: IState) => {
     return {
@@ -10,7 +11,7 @@ const mapStateToProps = (state: IState) => {
 }
 
 const mapDispatchToProps = {
-    uLogin
+    userLogin
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent)
