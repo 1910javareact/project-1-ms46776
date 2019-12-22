@@ -1,64 +1,80 @@
+import React, { SyntheticEvent } from "react";
+import { RouteComponentProps } from "react-router";
+import { Reimbursement } from "../../models/reimbursement";
 
-import React from 'react'
-import { Table } from 'reactstrap'
-import { RouteComponentProps } from 'react-router'
-import { Reimbursement } from '../../models/reimbursement'
+import { Table, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
-import NavBar from '../nav-bar/NavBar'
-import { getAllReimbursements } from '../../remote/Project1Clients.ts/Project1Reimbursement'
-import { ReimbursementsDisplayRowComponent } from './ReimbursementDisplayRowComponent'
+import { ReimbursementByStatusDisplayRowComponent } from "../../components/reimbursement-components/ReimbursementDisplayRowComponent";
 
-interface IReimbursementsDisplayProps extends RouteComponentProps {
-    reimbursement: Reimbursement
+
+
+interface IRembursementByStatusDisplayProps extends RouteComponentProps {
+    Reimbursement: Reimbursement[]
+    reimbursementID: (id: number) => void
+
 }
+// interface IRembursementByStatusDisplayState{
+//     allReimburements:reimbursement[]
+//     id:number
+// }
 
-interface IReimbursementsDisplayState {
-    allReimbursements: Reimbursement[]
-}
-
-export class ReimbursementsDisplayComponent extends React.Component<any, IReimbursementsDisplayState>{
+export class RembursementByStatusDisplayComponent extends React.Component<IRembursementByStatusDisplayProps, any>{
     constructor(props: any) {
         super(props)
         this.state = {
-            allReimbursements: []
+            id: undefined
         }
     }
-
-    async componentDidMount() {
-        try {
-            let r = await getAllReimbursements()
-            if (r.status === 200) {
-                this.setState({
-                    ...this.state,
-                    allReimbursements: r.body
-                })
-            }
-        } catch (e) {
-            console.log(e);
-
-        }
+    
+    updateId = (e: any) => {
+        this.setState({
+            ...this.state,
+            id: e.target.value
+        })
     }
+    
+    submitId = async (e: SyntheticEvent) => {
+        e.preventDefault()
+        this.props.reimbursementID(this.state.id)
+    }
+    // async componentDidMount(){
+    //     try{
+    //         let r = await getReimbursementByStatus(this.props.reimbursement.reimbursementId)
+    //         if(r.status === 200){
+    //             this.setState({
+    //                 ...this.state,
+    //                 allReimburements: r.body
+    //             })
+    //         }
+    //     }
+    //     catch (e){
+    //         console.log(e);
 
+    //     }
+    // }
     render() {
-        let rows = this.state.allReimbursements.map((e) => {
-            return <ReimbursementsDisplayRowComponent reimbursement={e} key={'reimbursement ' + e.reimbursementId} />
+        let rows = this.props.Reimbursement.map((e) => {
+            return <ReimbursementByStatusDisplayRowComponent Reimbursement={e} key={'Reimbursement' + e.reimbursementId} />//mapping  through keys and value ,Reimbursement is the key and + e.reimbursementId is the value
         })
         return (
+
             <div>
-                <nav>
-                    <NavBar />
-                </nav>
+                <Form onSubmit={this.submitId}>
+                    <FormGroup>
+                        <Label for="exampleID">ID</Label>
+                        <Input value={this.state.id} onChange={this.updateId} type="number" name="ID" id="exampleID" placeholder="with a placeholder" />
+                    </FormGroup>
+                    <Button color='danger'>Submit</Button>
+                </Form>
                 <Table bordered color='danger'>
                     <thead>
                         <tr>
+                            <td>ID</td>
                             <td>Author</td>
-                            <td>Description</td>
                             <td>Amount</td>
                             <td>Date Submitted</td>
-                            <td>Date Resolved</td>
-                            <td>Resolver</td>
+                            <td>Description</td>
                             <td>Status</td>
-                            <td>Type</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +82,9 @@ export class ReimbursementsDisplayComponent extends React.Component<any, IReimbu
                     </tbody>
                 </Table>
             </div>
+
+
+
         )
     }
 }

@@ -1,11 +1,11 @@
-import { compose, applyMiddleware, createStore, Store } from "redux"
+import { applyMiddleware, Store, createStore, compose } from "redux"
 import logger from "redux-logger"
+import reduxThunk from 'redux-thunk'
 import { state } from "./reducers"
-import reduxThunk from "redux-thunk"
 
 const a:any = window
 
-const composeEnhancers = a.__REDUX_DEVOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = a.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const enhancer = composeEnhancers(
     applyMiddleware(reduxThunk, logger)
