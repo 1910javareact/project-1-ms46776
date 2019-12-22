@@ -1,18 +1,20 @@
 import React from 'react'
-import { User } from '../..//models/user';
+import { User } from '../../models/user';
+import { TableRow, TableCell } from '@material-ui/core';
 
-interface IUsersDisplayRowProps{
+interface IUsersRowProps {
     user: User
 }
 
-export const UsersDisplayRowComponent: React.FC<IUsersDisplayRowProps> = (props) => {
+export const UsersRowComponent: React.FC<IUsersRowProps> = (props) => {
     return (
-        <tr>
-            <td>{props.user.username}</td>
-            <td>{props.user.email}</td>
-            <td>{props.user.firstName}</td>
-            <td>{props.user.lastName}</td>
-            <td>{props.user.role}</td>
-        </tr>
+        <TableRow>
+            <TableCell>{props.user.userId}</TableCell>
+            <TableCell>{props.user.username}</TableCell>
+            <TableCell>{props.user.firstName}</TableCell>
+            <TableCell>{props.user.lastName}</TableCell>
+            <TableCell>{props.user.email}</TableCell>
+            
+        </TableRow>
     )
 }

@@ -1,66 +1,25 @@
 import React from 'react'
-import { Table } from 'reactstrap'
-import { RouteComponentProps } from 'react-router'
-import { User } from '../../models/user'
-import NavBar from '../nav-bar/NavBar'
-import { getAllUsers } from '../../remote/Project1Clients.ts/Project1User'
-import { UsersDisplayRowComponent } from './UserDisplayRow'
+import { User } from '../../models/user';
+import { Card, Container } from '@material-ui/core';
 
-interface IUsersDisplayProps extends RouteComponentProps {
+interface IUserInfoComponentProps {
     user: User
 }
 
-interface IUsersDisplayState {
-    allUsers: User[]
-}
-
-export class UsersDisplayComponent extends React.Component<any, IUsersDisplayState>{
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            allUsers: []
-        }
-    }
-
-    async componentDidMount() {
-        try {
-            let u = await getAllUsers()
-            if (u.status === 200) {
-                this.setState({
-                    ...this.state,
-                    allUsers: u.body
-                })
-            }
-        } catch (e) {
-            console.log(e);
-
-        }
-    }
+export class UserInfoComponent extends React.Component<IUserInfoComponentProps, any>{
 
     render() {
-        let rows = this.state.allUsers.map((e) => {
-            return <UsersDisplayRowComponent user={e} key={'user ' + e.userId} />
-        })
         return (
-            <div>
-                <nav>
-                    <NavBar />
-                </nav>
-                <Table bordered color='danger'>
-                    <thead>
-                        <tr>
-                            <td>Username</td>
-                            <td>Email</td>
-                            <td>First Name</td>
-                            <td>Last Name</td>
-                            <td>Role</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </Table>
-            </div>
+            <Container component="main" maxWidth="xs" >
+                <Card >
+                    <p className="cardP">UserID: {this.props.user.userId}</p>
+                    <p className="cardP">Username: {this.props.user.username}</p>
+                    <p className="cardP">First name: {this.props.user.firstName}</p>
+                    <p className="cardP">Last name: {this.props.user.lastName}</p>
+                    <p className="cardP">Email: {this.props.user.email}</p>
+            
+                </Card>
+            </Container>
         )
     }
 }

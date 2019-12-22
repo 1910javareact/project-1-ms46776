@@ -1,14 +1,16 @@
-import { connect } from "react-redux";
 import { IState } from "../../reducers";
-import { UsersDisplayComponent } from "./UserDisplayComponent";
+import { userAction } from "../../action-mappers/user-action-mapper"
+import { connect } from "react-redux";
+import { UserInfoComponent } from "./UserDisplayComponent";
 
-const mapStateToProps = (state:IState, ownProps:any) => {
+const mapStateToProps = (state: IState) => {
     return {
-        user:state.login.user,
-        history:ownProps.history,
-        match:ownProps.match,
-        location:ownProps.location
+        user: state.login.user
     }
 }
 
-export default connect(mapStateToProps)(UsersDisplayComponent)
+const mapDispatchtoProps = {
+    userAction
+}
+
+export default connect(mapStateToProps, mapDispatchtoProps)(UserInfoComponent)

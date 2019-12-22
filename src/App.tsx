@@ -1,38 +1,39 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Login from './components/login-components/LoginContainer';
-import B99Nav from './components/nav-bar/NavBar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginComponent from './components/login-components/LoginContainer';
 import { Provider } from 'react-redux';
-import { store } from './Store'
-import UserDisplay from './components/user-component/UserDisplayContainer';
-import ReimDisplay from './components/reimbursement-components/ReimbursementDisplayContainer';
-
-import UserByIdComponent from './components/UserById-Component/UserByIdDisplayContainer'
+import { store } from './Store';
+import UserInfoComponent from './components/user-component/UserDisplayContainer';
+import ReimbursementInfoComponent from './components/reimbursement-components/ReimbursementContainer';
+import AllUsersComponent from './components/user-component/AllUserContainer';
+import UserByIdComponent from './components/user-component/UserByIdDisplayContainer';
+import ReimbursementByStatusIdComponent from './components/reimbursement-components/ReimbursementByStatusIdContainer';
+import ReimbursementByUserIdComponent from './components/reimbursement-components/ReimbursementByUserIdContainer';
+import { UpdateUserComponent } from './components/user-component/UserUpdateComponent';
 
 const App: React.FC = () => {
   return (
-    <div className='App'>
+    <div className="App">
       <Provider store={store}>
         <Router>
-          <nav>
-            <B99Nav />
-          </nav>
-          <header className='App-header'>
-            <Switch>
-              <Route path='/user' component={UserDisplay} />
-              <Route path='/reimbursement' component={ReimDisplay} />
-              <Route path='/' component={Login} />
-              <Route path='/user/id' component={UserByIdComponent}/>
-              {/* <Route path='/user' component={} />
-              <Route path='/user' component={} /> */}
-
-            </Switch>
-          </header>
+          <Switch>
+            <Route path='/user' component={AllUsersComponent} />
+            <Route path='/user' component={UserInfoComponent} />
+            <Route path='/userbyid' component={UserByIdComponent} />
+            <Route path='/updateuser' component={UpdateUserComponent} />
+            <Route path='/reimbursements/status' component={ReimbursementByStatusIdComponent} />
+            <Route path='/reimbursements/user' component={ReimbursementByUserIdComponent} />
+            <Route path='/reimbursements' component={ReimbursementInfoComponent} />
+            <Route path='/login' component={LoginComponent} />
+            <Route path='/'>
+              <LoginComponent />
+            </Route>
+          </Switch>
         </Router>
       </Provider>
     </div>
   );
-};
+}
 
 export default App;

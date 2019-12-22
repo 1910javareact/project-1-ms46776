@@ -1,5 +1,4 @@
 import { userClient } from "./Project1Client";
-import { User } from "../../models/user";
 
 export async function ersLogin(username:string, password:string){
     const credentials = {
@@ -66,3 +65,31 @@ export const getUserById = async (id:number) => {
     }
 }
 
+export async function updateUser(userId: number, username: string, password: string, firstName: string, lastName: string, email: string, role: number) {
+    const fields = {
+        userId,
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        role
+    }
+    try {
+        let response = await userClient.patch('/user', fields)
+        if (response.status === 200) {
+            return {
+                status: response.status,
+                body: response.data
+            }
+        } else {
+            return {
+                status: response.status,
+                body: undefined
+            }
+        }
+    } catch (e) {
+        console.log(e);
+        throw new Error('Something Went Wrong')
+    }
+}

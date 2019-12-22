@@ -1,34 +1,30 @@
+import { ersRemoteReimbursement } from "../remote/Project1Clients.ts/Project1Reimbursement"
 
-
-import { getReimbursementByStatus } from "../remote/Project1Clients.ts/ReimbursementByStatus"
-
-export const ReimbTypes = {
-    INVALID_CREDENTIALS: 'TOKEN_HAS_EXPIRED',
-    SUCCESSFUL_REIMBURSEMENT: 'REIMBURSEMENT_FOUND',
-    UNSUCCESSFUL_FAILED: 'REIMBURSEMENT_NOT_FOUND'
+export const ersReimbursementInfoType = {
+    GOT_REIMBURSEMENT_INFO: 'ERS_GOT_REIMBURSEMENT_INFO',
+    FAILED_REIMBURSEMENT_INFO: 'ERS_FAILED_REIMBURSEMENT_INFO'
 }
-export const reimbursementID = (id:number) => async (dispatch:any) => {
 
-    try{
-        let res = await getReimbursementByStatus(id)
-        //a successful login
-        if(res.status === 200){
-            //this is how do it when we have async operations
+export const ersReimbursementInfo = (userId: number) => async (dispatch: any) => {
+    try {
+        let res = await ersRemoteReimbursement(userId)
+        // Request successful
+        if (res.status === 200) {
             dispatch({
-                type:ReimbTypes.SUCCESSFUL_REIMBURSEMENT,
-                payload:{
-                    Reimbursement:res.body//payload is data which is comimg fron server (database)
+                type: ersReimbursementInfoType.GOT_REIMBURSEMENT_INFO,
+                payload: {
+                    reimbursement: res.body
                 }
             })
-        }else{
+        } else {
             dispatch({
-                type:ReimbTypes.INVALID_CREDENTIALS
+                type: ersReimbursementInfoType.FAILED_REIMBURSEMENT_INFO
             })
         }
-    }catch(e){
+
+    } catch (e) {
         dispatch({
-            type:ReimbTypes.UNSUCCESSFUL_FAILED
+            type: ersReimbursementInfoType.FAILED_REIMBURSEMENT_INFO
         })
     }
-    
 }
