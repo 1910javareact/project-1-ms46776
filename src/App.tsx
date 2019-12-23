@@ -13,7 +13,7 @@ import { UpdateReimbursementComponent } from './components/reimbursement-compone
 import ReimbursementInfoComponent from './components/reimbursement-components/ReimbursementInfoContainer';
 import ReimbursementByStatusIdComponent from './components/reimbursement-components/ReimbursementByStatusIdContainer';
 import ReimbursementByUserIdComponent from './components/reimbursement-components/ReimbursementByUserIdContainer';
-import { SubmitReimbursementComponent } from './components/reimbursement-components/SubmitReimbursementComponent';
+import SubmitReimbursementComponent  from './components/reimbursement-components/SubmitReimbursementContainer';
 
 const App: React.FC = () => {
   return (

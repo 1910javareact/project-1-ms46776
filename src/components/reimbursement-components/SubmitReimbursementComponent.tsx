@@ -1,95 +1,150 @@
 import React, { SyntheticEvent } from 'react'
-import { Container, Card, TextField, Button, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
+import { Form, FormGroup, Label, Col, Input, Button, Alert } from 'reactstrap'
+import { User } from '../../models/user'
 import { ersRemoteSubmitReimbursement } from '../../remote/Project1Clients.ts/Project1Reimbursement'
+import { Redirect } from 'react-router'
 
-let dt = new Date()
-let today = '' + dt.getFullYear() + dt.getMonth() + dt.getDate()
-export class SubmitReimbursementComponent extends React.Component<any, any> {
+interface ISubmitReimbursementComponentProps {
+    user: User
+    token: String
+}
+
+interface ISubmitReimbursementComponentState {
+    amount: number;
+    type: number;
+    description: string;
+    submitted: boolean
+    invalidSubmit: boolean
+}
+
+export class SubmitReimbursementComponent extends React.Component<ISubmitReimbursementComponentProps, ISubmitReimbursementComponentState>{
+
     constructor(props: any) {
         super(props)
         this.state = {
-            sumbitted: '',
             amount: 0,
-            dateSubmitted: today,
+            type: 0,
             description: '',
-            type: 1
+            submitted: false,
+            invalidSubmit: false
         }
     }
-    updateAmount = (e: any) => {
+
+    updateAmount = (input: any) => {
         this.setState({
             ...this.state,
-            amount: e.target.value
+            amount: input.target.value
         })
     }
-    updateDescription = (e: any) => {
+
+    updateDescription = (input: any) => {
         this.setState({
             ...this.state,
-            description: e.target.value
+            description: input.target.value
         })
     }
-    updateType = (e: any) => {
+
+    updateType = (input: any) => {
         this.setState({
             ...this.state,
-            type: e.target.value
+            type: input.target.value
         })
+
     }
+
     submitReimbursement = async (e: SyntheticEvent) => {
         e.preventDefault()
         try {
-            let s = await ersRemoteSubmitReimbursement(this.state.amount, this.state.description, this.state.type, this.state.dateSubmitted)
-            if (s.status === 201) {
+            let r = await ersRemoteSubmitReimbursement(this.props.user.userId, this.state.amount, this.state.description,this.state.type)
+            if (r.status === 201) {
                 this.setState({
                     ...this.state,
-                    sumbitted: 'Successfully Sumbitted'
-                })
-            } else {
-                this.setState({
-                    ...this.state,
-                    sumbitted: s.status
+                    submitted: true,
+                    invalidSubmit: false
                 })
             }
         } catch (e) {
-            console.log(e);
+            this.setState({
+                ...this.state,
+                invalidSubmit: true
+            })
         }
+    }
+
+    invalidSubmit = () => {
+        return (
+            <Alert color="warning">
+                Please Include All Fields.
+            </Alert>
+        )
+    }
+
+    validSubmit = () => {
+        return (
+            <Alert color="success">
+                Reimbursement Submitted
+            </Alert>
+        )
     }
 
     render() {
         return (
-            <Container component="main" maxWidth="xs">
-                <Typography component="h1" variant="h5">
-                    Submit Reimbursement
-                </Typography>
-                <Card>
-                    <form onSubmit={this.submitReimbursement} className="updateComponent" noValidate autoComplete="off">
-                        <TextField onChange={this.updateAmount} label="Amount" />
-                        <br />
-                        <TextField onChange={this.updateDescription} label="Description" />
-                        <br />
-                        <p> </p>
-                        <FormControl component="fieldset" className='{classes.formControl}'>
-                            <FormLabel component="legend">Type</FormLabel>
-                            <RadioGroup name="type" value={this.state.type} onChange={this.updateType}>
-                                <FormControlLabel value="1" control={<Radio />} label="Lodging" />
-                                <FormControlLabel value="2" control={<Radio />} label="Travel" />
-                                <FormControlLabel value="3" control={<Radio />} label="Food" />
-                                <FormControlLabel value="4" control={<Radio />} label="Other" />
-                            </RadioGroup>
-                        </FormControl>
-                        <br />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className='{classes.submit}'
-                        >
-                            Submit
-                        </Button>
-                    </form>
-                    <p>{this.state.dateSubmitted}</p>
-                    <p>{this.state.sumbitted}</p>
-                </Card>
-            </Container>
+            this.props.token ?
+                <div>
+                    {this.state.invalidSubmit && this.invalidSubmit()}
+                    {this.state.submitted && this.validSubmit()}
+                    <Form onSubmit={this.submitReimbursement}>
+                        <FormGroup row>
+                            <Label for="exampleAmount" sm={2}>Amount: $</Label>
+                            <Col sm={10}>
+                                <Input type="number" name="amount" id="exampleAmount" placeholder="Amount" value={this.state.amount} onChange={this.updateAmount} />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup tag="fieldset" row>
+                            <legend className="col-form-label col-sm-2">Type</legend>
+                            <Col sm={10}>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio2" value="1" onChange={this.updateType} />
+                                        Lodging
+                                </Label>
+                                </FormGroup>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio2" value="2" onChange={this.updateType} />
+                                        Travel
+                                </Label>
+                                </FormGroup>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio2" value="3" onChange={this.updateType} />
+                                        Food
+                                </Label>
+                                </FormGroup>
+                                <FormGroup check>
+                                    <Label check>
+                                        <Input type="radio" name="radio2" value="4" onChange={this.updateType} />
+                                        Other
+                                </Label>
+                                </FormGroup>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="exampleDescription" sm={2}>Description:</Label>
+                            <Col sm={10}>
+                                <Input type="textarea" name="description" id="exampleDescription" value={this.state.description} onChange={this.updateDescription} />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup check row>
+                            <Col sm={{ size: 10, offset: 2 }}>
+                                <Button disabled={this.state.submitted}>Submit</Button>
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                   
+                </div>
+                :
+                <Redirect to='/login' />
         )
     }
 }
