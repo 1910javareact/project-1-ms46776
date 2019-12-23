@@ -5,12 +5,15 @@ import LoginComponent from './components/login-components/LoginContainer';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import UserInfoComponent from './components/user-component/UserDisplayContainer';
-import ReimbursementInfoComponent from './components/reimbursement-components/ReimbursementContainer';
 import AllUsersComponent from './components/user-component/AllUserContainer';
 import UserByIdComponent from './components/user-component/UserByIdDisplayContainer';
+
+import { UpdateUserComponent } from './components/user-component/UserUpdateComponent';
+import { UpdateReimbursementComponent } from './components/reimbursement-components/UpdateReimbursementComponent';
+import ReimbursementInfoComponent from './components/reimbursement-components/ReimbursementInfoContainer';
 import ReimbursementByStatusIdComponent from './components/reimbursement-components/ReimbursementByStatusIdContainer';
 import ReimbursementByUserIdComponent from './components/reimbursement-components/ReimbursementByUserIdContainer';
-import { UpdateUserComponent } from './components/user-component/UserUpdateComponent';
+import { SubmitReimbursementComponent } from './components/reimbursement-components/SubmitReimbursementComponent';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +28,9 @@ const App: React.FC = () => {
             <Route path='/reimbursements/status' component={ReimbursementByStatusIdComponent} />
             <Route path='/reimbursements/user' component={ReimbursementByUserIdComponent} />
             <Route path='/reimbursements' component={ReimbursementInfoComponent} />
+            <Route path='/sumbitreimbursement' component={SubmitReimbursementComponent} />
+            <Route path='/updatereimbursement' component={UpdateReimbursementComponent} />
+            
             <Route path='/login' component={LoginComponent} />
             <Route path='/'>
               <LoginComponent />

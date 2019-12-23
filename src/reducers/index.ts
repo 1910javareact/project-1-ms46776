@@ -3,11 +3,11 @@ import { User } from "../models/user";
 import { loginReducer } from "./login-reducer";
 import { userInfoReducer } from "./user-reducer";
 import { Reimbursement } from "../models/reimbursement";
-import { reimbursementInfoReducer } from "./reimbursement-reducer";
 
-import { reimbursementByStatusIdReducer } from "./reimbursement-by-status-id-reducer";
 
 import { userByIdReducer } from "./user-by-id-reducer";
+import { reimbursementByStatusIdReducer } from "./reimbursement-by-status-id-reducer";
+import { reimbursementInfoReducer } from "./reimbursement-info-reducer";
 
 //this file will contain the type definitions for our store
 //there will be many interfaces, that contain what each chunk of store should have
@@ -35,6 +35,7 @@ export interface IState {
     userById: IUserState,
     reimbursementByStatusId: IReimbursementState,
     reimbursementInfo: IReimbursementState
+  
 }
 
 //this will combine all of our reducers
@@ -45,4 +46,5 @@ export const state = combineReducers<IState>({
     userById: userByIdReducer,
     reimbursementByStatusId: reimbursementByStatusIdReducer,
     reimbursementInfo: reimbursementInfoReducer
+    
 })

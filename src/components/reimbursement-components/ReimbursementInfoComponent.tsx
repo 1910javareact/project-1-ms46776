@@ -2,7 +2,8 @@ import React from 'react'
 import { Reimbursement } from '../../models/reimbursement'
 import { Container, Card, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
 import { User } from '../../models/user'
-import { ReimbursementRowComponent } from './ReimbursementDisplayRowComponent'
+import { ReimbursementRowComponent } from './ReimbursementRowComponent'
+
 
 interface IReimbursementInfoComponentProps {
     reimbursement: Reimbursement[]

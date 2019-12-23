@@ -1,8 +1,5 @@
 import { ersRemoteReimbursementByStatusId } from "../remote/Project1Clients.ts/Project1Reimbursement"
 
-
-
-
 export const ersReimbursementByStatusIdType = {
     GOT_REIMBURSEMENT_BY_STATUS_ID: 'ERS_GOT_REIMBURSEMENT_BY_STATUS_ID',
     FAILED_REIMBURSEMENT_BY_STATUS_ID: 'ERS_FAILED_REIMBURSEMENT_BY_STATUS_ID'

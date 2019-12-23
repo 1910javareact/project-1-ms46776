@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Reimbursement } from '../../models/reimbursement'
 import { Container, Card, Table, TableHead, TableRow, TableCell, TableBody, TextField, Button } from '@material-ui/core'
-import { ReimbursementRowComponent } from './ReimbursementDisplayRowComponent'
+import { ReimbursementRowComponent } from './ReimbursementRowComponent'
 
 interface IReimbursementByStatusIdComponentProps {
     reimbursement: Reimbursement[]

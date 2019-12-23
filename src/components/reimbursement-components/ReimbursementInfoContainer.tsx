@@ -1,7 +1,7 @@
 import { IState } from "../../reducers";
-import { ersReimbursementInfo } from "../../action-mappers/reimbursement-action-mapper"
+import { ersReimbursementInfo } from "../../action-mappers/reimbursement-info-action-mapper"
 import { connect } from "react-redux";
-import { ReimbursementInfoComponent } from "./ReimbursementComponent";
+import { ReimbursementInfoComponent } from "./ReimbursementInfoComponent";
 
 const mapStateToProps = (state: IState) => {
     return {

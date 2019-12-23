@@ -1,5 +1,5 @@
 import { IState } from "../../reducers";
-import { ersReimbursementByStatusId } from "../../action-mappers/reimbursement-by-status-id-action-mapper"
+import { ersReimbursementByStatusId } from "../../action-mappers/reimbursement-by-status-id"
 import { connect } from "react-redux";
 import { ReimbursementByStatusIdComponent } from "./ReimbursementByStatusIdComponent";
 

@@ -1,6 +1,6 @@
 import { IReimbursementState } from ".";
 import { Reimbursement } from "../models/reimbursement";
-import { ersReimbursementByStatusIdType } from "../action-mappers/reimbursement-by-status-id-action-mapper";
+import { ersReimbursementByStatusIdType } from "../action-mappers/reimbursement-by-status-id";
 
 const initialState: IReimbursementState = {
     reimbursement: [new Reimbursement(0, 0, 0, 0, 0, '', 0, 0, 0)]
