@@ -40,7 +40,7 @@ export async function ersRemoteReimbursementByStatusId(statusId: number) {
     }
 }
 
-export async function ersRemoteSubmitReimbursement(amount: number, description: string, type: number, dateSubmitted: number) {
+export async function ersRemoteSubmitReimbursement( amount:number, dateSubmitted:number, description:string,type:number) {
     const fields = {
         reimbursementId: 0,
         author: 0,
@@ -71,10 +71,17 @@ export async function ersRemoteSubmitReimbursement(amount: number, description: 
     }
 }
 
-export async function ersRemoteUpdateReimbursement(reimbursementId: number, status: number) {
+export async function ersRemoteUpdateReimbursement(reimbursementId: number, author:number, amount:number, dateSubmitted:number, dateResolved:number, description:string, resolver:number, status: number, type:number) {
     const fields = {
         reimbursementId,
-        status
+        author,
+        amount,
+        dateSubmitted,
+        dateResolved,
+        description,
+        resolver,
+        status,
+        type,
     }
     try {
         let response = await userClient.patch('/reimbursements', fields)

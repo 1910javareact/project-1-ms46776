@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react'
-import { Container, Card, TextField, Button } from '@material-ui/core'
+import { Container, Card, TextField, Button, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 import { ersRemoteSubmitReimbursement } from '../../remote/Project1Clients.ts/Project1Reimbursement'
+
 let dt = new Date()
 let today = '' + dt.getFullYear() + dt.getMonth() + dt.getDate()
 export class SubmitReimbursementComponent extends React.Component<any, any> {
@@ -55,11 +56,25 @@ export class SubmitReimbursementComponent extends React.Component<any, any> {
     render() {
         return (
             <Container component="main" maxWidth="xs">
+                <Typography component="h1" variant="h5">
+                    Submit Reimbursement
+                </Typography>
                 <Card>
                     <form onSubmit={this.submitReimbursement} className="updateComponent" noValidate autoComplete="off">
-                        <TextField onChange={this.updateAmount} id="standard-basic-1" label="Amount" />
-                        <TextField onChange={this.updateDescription} id="standard-basic-3" label="Description" />
-                        <TextField onChange={this.updateType} id="standard-basic-4" label="Type" />
+                        <TextField onChange={this.updateAmount} label="Amount" />
+                        <br />
+                        <TextField onChange={this.updateDescription} label="Description" />
+                        <br />
+                        <p> </p>
+                        <FormControl component="fieldset" className='{classes.formControl}'>
+                            <FormLabel component="legend">Type</FormLabel>
+                            <RadioGroup name="type" value={this.state.type} onChange={this.updateType}>
+                                <FormControlLabel value="1" control={<Radio />} label="Lodging" />
+                                <FormControlLabel value="2" control={<Radio />} label="Travel" />
+                                <FormControlLabel value="3" control={<Radio />} label="Food" />
+                                <FormControlLabel value="4" control={<Radio />} label="Other" />
+                            </RadioGroup>
+                        </FormControl>
                         <br />
                         <Button
                             type="submit"
